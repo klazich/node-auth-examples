@@ -1,0 +1,9 @@
+{
+  "name": "node-auth-examples",
+  "version": "1.0.0",
+  "description": "Examples of authentication and authorization in express with passport",
+  "main": "index.js",
+  "author": "Kevin Lazich <dev@kevinlazich.com>",
+  "license": "MIT",
+  "private": true
+}
