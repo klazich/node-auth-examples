@@ -8,6 +8,7 @@
   "private": true,
   "workspaces": [
     "client",
+    "jwt-auth-server",
     "local-auth-server"
   ],
   "scripts": {
