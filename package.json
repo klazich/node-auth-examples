@@ -5,5 +5,11 @@
   "main": "index.js",
   "author": "Kevin Lazich <dev@kevinlazich.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "uuid": "^3.3.2"
+  },
+  "dependencies": {
+    "dotenv": "^6.0.0"
+  }
 }
