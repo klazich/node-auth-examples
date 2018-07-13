@@ -6,9 +6,11 @@
   "author": "Kevin Lazich <dev@kevinlazich.com>",
   "license": "MIT",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "prettier": "prettier --write \"./**/*.{js,jsx,json,css,md}\""
+  },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,css,md}": [
+    "./**/*.{js,jsx,json,css,md}": [
       "prettier --write",
       "git add"
     ]
@@ -19,6 +21,11 @@
     }
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-inline-import": "^3.0.0",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.2.0",
     "uuid": "^3.3.2"
