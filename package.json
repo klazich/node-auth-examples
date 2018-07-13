@@ -7,7 +7,8 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "client"
+    "client",
+    "local-auth-server"
   ],
   "scripts": {
     "prettier": "prettier --write \"./**/*.{js,jsx,json,css,md}\""
