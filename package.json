@@ -7,7 +7,9 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "client"
+    "client",
+    "jwt-auth-server",
+    "local-auth-server"
   ],
   "scripts": {
     "prettier": "prettier --write \"./**/*.{js,jsx,json,css,md}\""
