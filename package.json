@@ -1,17 +1,24 @@
 {
   "name": "node-auth-examples",
   "version": "1.0.0",
-  "description":
-    "Examples of authentication and authorization in express with passport",
+  "description": "Examples of authentication and authorization in express with passport",
   "main": "index.js",
   "author": "Kevin Lazich <dev@kevinlazich.com>",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "client",
+    "jwt-auth-server",
+    "local-auth-server"
+  ],
   "scripts": {
     "prettier": "prettier --write \"./**/*.{js,jsx,json,css,md}\""
   },
   "lint-staged": {
-    "./**/*.{js,jsx,json,css,md}": ["prettier --write", "git add"]
+    "./**/*.{js,jsx,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {
