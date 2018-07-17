@@ -8,12 +8,12 @@
   "private": true,
   "workspaces": [
     "client",
-    "jwt-auth-server",
-    "local-auth-server",
+    "jwt-server",
     "database"
   ],
   "scripts": {
-    "prettier": "prettier --write \"./**/*.{js,jsx,json,css,md}\""
+    "prettier": "prettier --write \"./**/*.{js,jsx,json,css,md}\"",
+    "start": "nodemon src/server.js --exec babel-node"
   },
   "lint-staged": {
     "./**/*.{js,jsx,json,css,md}": [
@@ -34,6 +34,7 @@
     "babel-preset-env": "^1.7.0",
     "husky": "^1.0.0-rc.9",
     "lint-staged": "^7.2.0",
+    "nodemon": "^1.18.2",
     "uuid": "^3.3.2"
   },
   "dependencies": {
