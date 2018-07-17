@@ -70,7 +70,7 @@ UserSchema.virtual('password').set(async function(password) {
    * Middleware below on how this is used).
    *
    * Mongoose virtual attributes do not get persisted into the Mongo database
-   * therefore .
+   * therefore.
    */
   this._password = password
 })
