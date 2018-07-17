@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose'
 import argon2 from 'argon2'
 import jwt from 'jsonwebtoken'
 
-//// USER SCHEMA //////////////////////////////////////////////////////////////
+// USER SCHEMA
 export const UserSchema = Schema({
   hash: {
     type: String,
@@ -33,43 +33,55 @@ export const UserSchema = Schema({
   },
 })
 
-//// USER VIRTUALS ////////////////////////////////////////////////////////////
-UserSchema.virtual('password').set(async function(password) {
-  this._password = password
-})
-
-//// USER STATIC METHODS //////////////////////////////////////////////////////
+// USER STATIC METHODS
 UserSchema.statics = {
   /**
-   * Static method on the User class for generating password hashes.
+   * Static method on the User class for generating
+   * password hashes.
+   *
+   * An argument could be made to inline this into the middleware bellow.
    */
   async generateHash(password) {
     return argon2.hash(password, { type: argon2.argon2id })
   },
 }
 
-//// USER INSTANCE METHODS ////////////////////////////////////////////////////
+// USER INSTANCE METHODS
 UserSchema.methods = {
   /**
-   * Password authentication on User instances.
+   * Password authentication for User instances.
    */
   async authenticate(password) {
     return argon2.verify(this.hash, password)
   },
   /**
-   * Tokenize User instance.
+   * Json web tokenization for User instances.
    */
   async generateToken() {
     return jwt.sign(this, process.env.JWT_SECRET)
   },
 }
 
-//// USER MIDDLEWARE //////////////////////////////////////////////////////////
+// USER VIRTUAL ATTRIBUTES
+UserSchema.virtual('password').set(async function(password) {
+  /**
+   * This `password` virtual attribute works as a temporary holder for the
+   * password and also as a flag to mongoose middleware hooks (see the User
+   * Middleware below on how this is used).
+   *
+   * Mongoose virtual attributes do not get persisted into the Mongo database
+   * therefore .
+   */
+  this._password = password
+})
+
+// USER MIDDLEWARE
 UserSchema.pre('save', async function(next) {
   if (this._password) {
     try {
       const hash = await this.generateHash(this._password)
       this.hash = hash
+      delete this._password // I'm not sure if this is necessary.
       return next()
     } catch (err) {
       console.error(err)
@@ -78,5 +90,5 @@ UserSchema.pre('save', async function(next) {
   }
 })
 
-// Compile and export the User model
+// MODEL CREATION AND EXPORT
 export const User = mongoose.model('User', userSchema)
