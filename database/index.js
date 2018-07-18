@@ -5,7 +5,7 @@ import { db, app } from '../config'
 export { User } from './models/user'
 
 const { host, port, name } = db
-const connectionString = `mongod://${host}:${port}/${name}`
+const connectionString = `mongodb://${host}:${port}/${name}`
 const connectionOptions = { useNewUrlParser: true }
 
 // mongoose configurations
@@ -26,7 +26,7 @@ mongoose.connection
     console.error(`* Could not establish connection to a MongoDB service.`, err)
   })
   .on('connected', () => {
-    console.log(`> Connected to a MongoDB service succesfully.`)
+    console.log(`> Connected to a MongoDB service successfully.`)
   })
   .on('disconnected', () => {
     console.info(`> Disconnected from the MongoDB service.`)

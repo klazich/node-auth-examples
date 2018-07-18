@@ -6,13 +6,18 @@ import jwt from 'jsonwebtoken'
 export const UserSchema = Schema({
   hash: {
     type: String,
-    default: '',
+    required: true,
   },
-  local: {
-    email: String,
+  email: {
+    type: String,
+    index: {
+      unique: true,
+    },
     unique: true,
-    index: { unique: true },
+    dropDups: true,
+    required: true,
   },
+  // Third-party credentials
   facebook: {
     id: String,
     token: String,
@@ -81,11 +86,12 @@ UserSchema.pre('save', async function(next) {
     try {
       const hash = await this.generateHash(this._password)
       this.hash = hash
-      delete this._password // I'm not sure if this is necessary.
       return next()
     } catch (err) {
       console.error(err)
       return next(err)
+    } finally {
+      delete this._password // I'm not sure if this is necessary.
     }
   }
 })
