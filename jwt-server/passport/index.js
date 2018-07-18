@@ -1,2 +1,7 @@
-import JwtStrategy from './jwt'
-import LocalStrategy from './local'
+import passport from 'passport'
+
+import LocalAuthentication from './local'
+import JwtAuthorization from './jwt'
+
+passport.use(LocalAuthentication)
+passport.use(JwtAuthorization)

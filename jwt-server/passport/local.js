@@ -2,30 +2,22 @@ import { Strategy as LocalStrategy } from 'passport-local'
 
 import { User } from '..'
 
-async function verify(req, email, password, next) {
+const verify = async (email, password, done) => {
   try {
-    // Check that a user exists with the given email.
-    const found = await User.findOne({ 'local.email': email })
-    if (!found) {
-      return next(null, false, { message: 'User not found' })
-    }
-    // Authenticate the given password with the hash
-    const authenticated = await found.authenticate(password)
+    const userDocument = await User.findOne({ email }).exec()
+    const authenticated = await userDocument.authenticate(password)
+
     return authenticated
-      ? // Pass the user to the next middleware if valid.
-        next(null, found)
-      : // Inform the client if the id is not found.
-        next(null, false, { message: 'Incorrect email or password' })
+      ? done(null, userDocument)
+      : done('Incorrect Email / Password')
   } catch (err) {
-    // return any initial errors
-    return next(err)
+    done(err)
   }
 }
 
 const options = {
   usernameField: 'email',
-  passwordFiled: 'password',
-  passReqToCallback: true,
+  passwordField: 'password',
 }
 
 export default new LocalStrategy(options, verify)
